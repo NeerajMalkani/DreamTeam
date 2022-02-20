@@ -120,14 +120,14 @@ const FormatMessage = (data) => {
           const reqRuns = parseInt(data.visitor_team_score) + 1 - parseInt(data.local_team_score);
           const currOvers = data.local_team_overs.toString().split(".");
           const currBalls = parseInt(currOvers[0]) * 6 + parseInt(currOvers[1] === null || currOvers[1] === undefined ? 0 : currOvers[1]);
-          const totBalls = parseInt(data.total_overs_played) * 6;
+          const totBalls = data.type === "T20" || data.type === "T20I" ? 20 * 6 : data.type === "T10" ? 10 * 6 : 50 * 6;
           const remBalls = totBalls - currBalls;
           formatted_message = data.local_team_code + " requires " + reqRuns + (reqRuns === 1 ? " run" : " runs") + " in " + remBalls + (remBalls === 1 ? " ball" : " balls" + " (RR: " + ((reqRuns / remBalls) * 6).toFixed(2) + ")");
         } else {
           const reqRuns = parseInt(data.local_team_score) + 1 - parseInt(data.visitor_team_score);
           const currOvers = data.visitor_team_overs.toString().split(".");
           const currBalls = parseInt(currOvers[0]) * 6 + parseInt(currOvers[1] === null || currOvers[1] === undefined ? 0 : currOvers[1]);
-          const totBalls = parseInt(data.total_overs_played) * 6;
+          const totBalls = data.type === "T20" || data.type === "T20I" ? 20 * 6 : data.type === "T10" ? 10 * 6 : 50 * 6;
           const remBalls = totBalls - currBalls;
           formatted_message = data.visitor_team_code + " requires " + reqRuns + (reqRuns === 1 ? " run" : " runs") + " in " + remBalls + (remBalls === 1 ? " ball" : " balls" + " (RR: " + ((reqRuns / remBalls) * 6).toFixed(2) + ")");
         }

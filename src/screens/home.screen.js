@@ -22,7 +22,7 @@ export const navigationRef = createNavigationContainerRef();
 const HomeScreen = (props) => {
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const [live, setLive] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
