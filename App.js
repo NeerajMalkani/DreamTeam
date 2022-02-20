@@ -1,12 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomNavigation, DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import AppTheme from "./src/infrastructure/apptheme/index";
-import HomeScreen from "./src/screens/home.screen";
+import HomeScreen, { navigationRef } from "./src/screens/home.screen";
 import FeedsScreen from "./src/screens/feeds.screen";
 import ContestsScreen from "./src/screens/contests.screen";
 import ProfileScreen from "./src/screens/profile.screen";
+import MatchDetailsScreen from "./src/screens/matchDetails.screen";
 
 const theme = {
   ...DefaultTheme,
@@ -18,7 +19,7 @@ const theme = {
   },
 };
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const BottomTabs = () => {
   const [index, setIndex] = React.useState(0);
@@ -39,9 +40,14 @@ const BottomTabs = () => {
 export default function App() {
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           <Stack.Screen name="HomeStack" component={BottomTabs} options={{ headerShown: false }} />
+          <Stack.Screen
+            name="MatchDetailsScreen"
+            component={MatchDetailsScreen}
+            options={({ route }) => ({ title: route.params.name, headerStyle: { backgroundColor: AppTheme.colors.brand.primary }, headerTintColor: AppTheme.colors.bg.primary, headerTitleStyle: { fontWeight: AppTheme.fontWeights.bold } })}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

@@ -16,6 +16,31 @@ export const styles = StyleSheet.create({
     elevation: 3,
   },
 
+  card_without_border_radius: {
+    backgroundColor: colors.bg.primary,
+    shadowColor: colors.ui.shadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
+    elevation: 2,
+  },
+
+  card_without_flex: {
+    backgroundColor: colors.bg.primary,
+    borderRadius: 4,
+    shadowColor: colors.ui.shadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
+    elevation: 2,
+  },
+
   align_self_left: {
     alignSelf: "flex-start",
   },
@@ -294,5 +319,48 @@ export const styles = StyleSheet.create({
   },
   margin_end_16: {
     marginEnd: 16,
+  },
+
+  dividerHor: {
+    width: "100%",
+    height: 1,
+  },
+
+  buttonCircleSmall: {
+    height: 24,
+    width: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+    borderRadius: 12,
+    elevation: 3,
+    backgroundColor: colors.brand.primary,
+  },
+
+  border: {
+    borderColor: colors.ui.disabled,
+    borderRadius: 4,
+    borderWidth: 1,
+  },
+
+  border_bottom: {
+    borderBottomColor: colors.ui.disabled,
+    borderBottomWidth: 1,
+  },
+
+  border_right: {
+    borderRightColor: colors.ui.disabled,
+    borderRightWidth: 1,
+  },
+
+  border_left: {
+    borderLeftColor: colors.ui.disabled,
+    borderLeftWidth: 1,
+  },
+
+  border_top: {
+    borderTopColor: colors.ui.disabled,
+    borderTopWidth: 1,
   },
 });

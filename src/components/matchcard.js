@@ -5,6 +5,23 @@ import moment from "moment";
 import { Card, Subheading, Text, Divider } from "react-native-paper";
 
 const MatchCard = (props) => {
+  const CardCliked = (data) => {
+    props.navigationRef.navigate("MatchDetailsScreen", {
+      name: data.local_team_code + " vs " + data.visitor_team_code,
+      matchID: data.id,
+      local_team: {
+        id: data.local_team_id,
+        name: data.local_team_name,
+        flag: data.local_team_flag,
+      },
+      visitor_team: {
+        id: data.visitor_team_id,
+        name: data.visitor_team_name,
+        flag: data.visitor_team_flag,
+      },
+    });
+  };
+
   return (
     <View>
       {props.data.map((k, i) => {
@@ -12,7 +29,7 @@ const MatchCard = (props) => {
         const teamBScore = FormatScore(props.data[i].visitor_team_score, props.data[i].visitor_team_overs, props.data[i].visitor_team_wickets);
         return (
           <View key={i} style={[AppTheme.styles.margin_8]}>
-            <TouchableNativeFeedback onPress={() => console.log("Pressed")}>
+            <TouchableNativeFeedback onPress={() => CardCliked(props.data[i])}>
               <Card>
                 <Card.Content>
                   <Text style={{ fontWeight: AppTheme.fontWeights.bold }}>{props.data[i].league_name}</Text>
@@ -68,7 +85,7 @@ const MatchCard = (props) => {
                       </View>
                     </View>
                   </View>
-                  <Divider style={[AppTheme.styles.margin_top_8]}></Divider>
+                  <Divider style={[AppTheme.styles.margin_top_8, { backgroundColor: AppTheme.colors.ui.secondary }]}></Divider>
                   <View style={[AppTheme.styles.padding_top_8]}>
                     <Text>{FormatMessage(props.data[i])}</Text>
                   </View>
