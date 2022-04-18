@@ -109,35 +109,35 @@ const FormatScore = (score, overs, wickets) => {
 };
 
 const FormatMessage = (data) => {
-  let formatted_message = data.note;
-  switch (data.type) {
+  let formatted_message = data.fixture_details.note;
+  switch (data.fixture_details.type) {
     case "T20":
     case "T10":
     case "ODI":
     case "T20I":
-      if (parseInt(data.is_live) === 1 && parseInt(data.local_team_inning) !== 0 && parseInt(data.visitor_team_inning) !== 0) {
+      if (parseInt(data.fixture_details.is_live) === 1 && parseInt(data.local_team_inning) !== 0 && parseInt(data.visitor_team_inning) !== 0) {
         if (parseInt(data.local_team_inning) > parseInt(data.visitor_team_inning)) {
           const reqRuns = parseInt(data.visitor_team_score) + 1 - parseInt(data.local_team_score);
           const currOvers = data.local_team_overs.toString().split(".");
           const currBalls = parseInt(currOvers[0]) * 6 + parseInt(currOvers[1] === null || currOvers[1] === undefined ? 0 : currOvers[1]);
-          const totBalls = data.type === "T20" || data.type === "T20I" ? 20 * 6 : data.type === "T10" ? 10 * 6 : 50 * 6;
+          const totBalls = data.fixture_details.type === "T20" || data.fixture_details.type === "T20I" ? 20 * 6 : data.fixture_details.type === "T10" ? 10 * 6 : 50 * 6;
           const remBalls = totBalls - currBalls;
           formatted_message = data.local_team_code + " requires " + reqRuns + (reqRuns === 1 ? " run" : " runs") + " in " + remBalls + (remBalls === 1 ? " ball" : " balls" + " (RR: " + ((reqRuns / remBalls) * 6).toFixed(2) + ")");
         } else {
           const reqRuns = parseInt(data.local_team_score) + 1 - parseInt(data.visitor_team_score);
           const currOvers = data.visitor_team_overs.toString().split(".");
           const currBalls = parseInt(currOvers[0]) * 6 + parseInt(currOvers[1] === null || currOvers[1] === undefined ? 0 : currOvers[1]);
-          const totBalls = data.type === "T20" || data.type === "T20I" ? 20 * 6 : data.type === "T10" ? 10 * 6 : 50 * 6;
+          const totBalls = data.fixture_details.type === "T20" || data.fixture_details.type === "T20I" ? 20 * 6 : data.fixture_details.type === "T10" ? 10 * 6 : 50 * 6;
           const remBalls = totBalls - currBalls;
           formatted_message = data.visitor_team_code + " requires " + reqRuns + (reqRuns === 1 ? " run" : " runs") + " in " + remBalls + (remBalls === 1 ? " ball" : " balls" + " (RR: " + ((reqRuns / remBalls) * 6).toFixed(2) + ")");
         }
-      } else if (parseInt(data.is_live) === 1 && (parseInt(data.local_team_inning) === 1 || parseInt(data.visitor_team_inning) === 1)) {
-        formatted_message = data.toss_won_team + " won the toss and elected " + data.elected;
+      } else if (parseInt(data.fixture_details.is_live) === 1 && (parseInt(data.local_team_inning) === 1 || parseInt(data.visitor_team_inning) === 1)) {
+        formatted_message = data.fixture_toss.toss_won_team + " won the toss and elected " + data.fixture_toss.elected;
       }
       break;
   }
-  if (data.status === "NS") {
-    formatted_message = "Starts at " + moment(moment.utc(data.starting_at).toDate()).local().format("llll");
+  if (data.fixture_details.status === "NS") {
+    formatted_message = "Starts at " + moment(moment.utc(data.fixture_details.starting_at).toDate()).local().format("llll");
   }
   return formatted_message;
 };

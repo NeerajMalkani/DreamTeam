@@ -3,5 +3,6 @@ export const API = {
   rapidapi_host: "livescore6.p.rapidapi.com",
   rapidapi_key: "Qtw5daIGTJmsha5QLAJJypOYspmxp1Fvr02jsnBNF5nCbUk9IG",
 
-  endpoint_cric: "https://sportsmastersofficial.com/api/v1.0/",
+  endpoint_cric: "https://api.starselector.com/",
+  cric_api_key: "pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp",
 };

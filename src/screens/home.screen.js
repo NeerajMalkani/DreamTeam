@@ -33,28 +33,28 @@ const HomeScreen = (props) => {
   useEffect(() => {
     fetchLatestMatches = async () => {
       try {
-        const requestMatches = await axios.get(API.endpoint_cric + "fixtures.php").catch((error) => {
+        const requestMatches = await axios.get(API.endpoint_cric + "getfixtures", { headers: { XApiKey: API.cric_api_key } }).catch((error) => {
           console.log(error);
           setLoading(false);
           setRefreshing(false);
           //clearInterval(initFM);
         });
-        if (requestMatches !== null && requestMatches.data !== null && requestMatches.data !== undefined && requestMatches.data.status === "success") {
-          const records = requestMatches.data.records;
+        if (requestMatches !== null && requestMatches.data !== null && requestMatches.data !== undefined && requestMatches.data.status === "Success") {
+          const records = requestMatches.data.data;
           if (records !== null && records !== undefined && records.length > 0) {
             setLive(
               records.filter((el) => {
-                return PlayStatus(el.status).type == "live";
+                return PlayStatus(el.fixture_details.status).type == "live";
               })
             );
             setUpcoming(
               records.filter((el) => {
-                return PlayStatus(el.status).type == "upcoming";
+                return PlayStatus(el.fixture_details.status).type == "upcoming";
               })
             );
             setResults(
               records.filter((el) => {
-                return PlayStatus(el.status).type == "results";
+                return PlayStatus(el.fixture_details.status).type == "results";
               })
             );
           }
@@ -146,17 +146,44 @@ const HomeScreen = (props) => {
                 </View>
                 <Divider style={[{ backgroundColor: AppTheme.colors.brand.secondary }]} />
                 <View style={[AppTheme.styles.flex_1_5, AppTheme.styles.padding_8, AppTheme.styles.flex_row]}>
-                  <View style={[AppTheme.styles.flex_column, AppTheme.styles.flex_1, AppTheme.styles.margin_8, AppTheme.styles.padding_8, AppTheme.styles.border_radius_4, { width: "100%", backgroundColor: AppTheme.colors.brand.secondary }]}>
+                  <View
+                    style={[
+                      AppTheme.styles.flex_column,
+                      AppTheme.styles.flex_1,
+                      AppTheme.styles.margin_8,
+                      AppTheme.styles.padding_8,
+                      AppTheme.styles.border_radius_4,
+                      { width: "100%", backgroundColor: AppTheme.colors.brand.secondary },
+                    ]}
+                  >
                     <Paragraph style={[{ color: AppTheme.colors.ui.tertiary }]}>Wallet</Paragraph>
                     <Title style={[{ color: AppTheme.colors.bg.primary }]}>¢200</Title>
                     <Ionicons name="wallet" color={AppTheme.colors.brand.secondary} size={28} style={[{ position: "absolute", bottom: 0, right: 0, opacity: 0.6 }]} />
                   </View>
-                  <View style={[AppTheme.styles.flex_column, AppTheme.styles.flex_1, AppTheme.styles.margin_8, AppTheme.styles.padding_8, AppTheme.styles.border_radius_4, { width: "100%", backgroundColor: AppTheme.colors.brand.secondary }]}>
+                  <View
+                    style={[
+                      AppTheme.styles.flex_column,
+                      AppTheme.styles.flex_1,
+                      AppTheme.styles.margin_8,
+                      AppTheme.styles.padding_8,
+                      AppTheme.styles.border_radius_4,
+                      { width: "100%", backgroundColor: AppTheme.colors.brand.secondary },
+                    ]}
+                  >
                     <Paragraph style={[{ color: AppTheme.colors.ui.tertiary }]}>Rank</Paragraph>
                     <Title style={[{ color: AppTheme.colors.bg.primary }]}>#2</Title>
                     <MaterialCommunityIcons name="crown" color={AppTheme.colors.brand.secondary} size={28} style={[{ position: "absolute", bottom: 0, right: 0, opacity: 0.6 }]} />
                   </View>
-                  <View style={[AppTheme.styles.flex_column, AppTheme.styles.flex_1, AppTheme.styles.margin_8, AppTheme.styles.padding_8, AppTheme.styles.border_radius_4, { width: "100%", backgroundColor: AppTheme.colors.brand.secondary }]}>
+                  <View
+                    style={[
+                      AppTheme.styles.flex_column,
+                      AppTheme.styles.flex_1,
+                      AppTheme.styles.margin_8,
+                      AppTheme.styles.padding_8,
+                      AppTheme.styles.border_radius_4,
+                      { width: "100%", backgroundColor: AppTheme.colors.brand.secondary },
+                    ]}
+                  >
                     <Paragraph style={[{ color: AppTheme.colors.ui.tertiary }]}>Points</Paragraph>
                     <Title style={[{ color: AppTheme.colors.bg.primary }]}>25K</Title>
                     <FontAwesome5 name="coins" color={AppTheme.colors.brand.secondary} size={24} style={[{ position: "absolute", bottom: 2, right: 2, opacity: 0.6 }]} />
